@@ -1,6 +1,14 @@
 import pygame
 import random
 import os
+import sys
+
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS  # For PyInstaller
+    except Exception:
+        base_path = os.path.abspath(".")  # For normal execution
+    return os.path.join(base_path, relative_path)
 
 pygame.init()
 pygame.mixer.init()
@@ -14,7 +22,7 @@ screen_width=900
 screen_height=600
 gameWindow=pygame.display.set_mode((screen_width,screen_height))
 #background image
-bgimg=pygame.image.load("./dist/static/back.jpg")
+bgimg = pygame.image.load(resource_path("static/back.jpg"))
 bgimg=pygame.transform.scale(bgimg,(screen_width,screen_height)).convert_alpha()
 
 
@@ -47,7 +55,7 @@ def welcome():
                 exit_game=True
             elif(event.type==pygame.KEYDOWN):
                 if(event.key==pygame.K_SPACE):
-                    pygame.mixer.music.load('./dist/static/calm_music.mp3')  # loading
+                    pygame.mixer.music.load(resource_path("static/calm_music.mp3"))  # loading
                     pygame.mixer.music.play()
                     gameloop()
             pygame.display.update()
@@ -73,10 +81,10 @@ def gameloop():
     food_x = random.randint(70, screen_width // 2)
     food_y = random.randint(70, screen_height // 2)
     score = 0
-    if(not os.path.exists("./dist/HighScore.txt")):
-        with open("./dist/HighScore.txt","w") as f:
+    if(not os.path.exists(resource_path("static/HighScore.txt"))):
+        with open(resource_path("static/HighScore.txt"),"w") as f:
             f.write("0")
-    with open("./dist/HighScore.txt", "r") as f:
+    with open(resource_path("static/HighScore.txt"), "r") as f:
         highscore = f.read()
         if (highscore == ""):
             highscore = 0
@@ -86,7 +94,7 @@ def gameloop():
 
     while(not exit_game):
         if(game_over):
-            with open("./dist/HighScore.txt", "w") as f:
+            with open(resource_path("static/HighScore.txt"), "w") as f:
                 f.write(str(highscore))
             gameWindow.fill(white)
             gameWindow.blit(bgimg, (0, 0))
@@ -147,7 +155,7 @@ def gameloop():
 
             #if snake collides with itself
             if(head in snk_list[:-1]):
-                pygame.mixer.music.load('./dist/Big Explosion Cut Off.mp3')  # loading
+                pygame.mixer.music.load(resource_path('static/Big Explosion Cut Off.mp3'))  # loading
                 pygame.mixer.music.play()
 
                 game_over=True
