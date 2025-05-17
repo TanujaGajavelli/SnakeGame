@@ -5,7 +5,7 @@ a = Analysis(
     ['SnakeGame.py'],
     pathex=[],
     binaries=[],
-    datas=[],
+    datas=[('static', 'static')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
