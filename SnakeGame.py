@@ -14,7 +14,7 @@ screen_width=900
 screen_height=600
 gameWindow=pygame.display.set_mode((screen_width,screen_height))
 #background image
-bgimg=pygame.image.load("./static/back.jpg")
+bgimg=pygame.image.load("./dist/static/back.jpg")
 bgimg=pygame.transform.scale(bgimg,(screen_width,screen_height)).convert_alpha()
 
 
@@ -47,7 +47,7 @@ def welcome():
                 exit_game=True
             elif(event.type==pygame.KEYDOWN):
                 if(event.key==pygame.K_SPACE):
-                    pygame.mixer.music.load('./static/calm_music.mp3')  # loading
+                    pygame.mixer.music.load('./dist/static/calm_music.mp3')  # loading
                     pygame.mixer.music.play()
                     gameloop()
             pygame.display.update()
@@ -73,10 +73,10 @@ def gameloop():
     food_x = random.randint(70, screen_width // 2)
     food_y = random.randint(70, screen_height // 2)
     score = 0
-    if(not os.path.exists("HighScore.txt")):
-        with open("HighScore.txt","w") as f:
+    if(not os.path.exists("./dist/HighScore.txt")):
+        with open("./dist/HighScore.txt","w") as f:
             f.write("0")
-    with open("HighScore.txt", "r") as f:
+    with open("./dist/HighScore.txt", "r") as f:
         highscore = f.read()
         if (highscore == ""):
             highscore = 0
@@ -86,7 +86,7 @@ def gameloop():
 
     while(not exit_game):
         if(game_over):
-            with open("HighScore.txt", "w") as f:
+            with open("./dist/HighScore.txt", "w") as f:
                 f.write(str(highscore))
             gameWindow.fill(white)
             gameWindow.blit(bgimg, (0, 0))
@@ -147,7 +147,7 @@ def gameloop():
 
             #if snake collides with itself
             if(head in snk_list[:-1]):
-                pygame.mixer.music.load('Big Explosion Cut Off.mp3')  # loading
+                pygame.mixer.music.load('./dist/Big Explosion Cut Off.mp3')  # loading
                 pygame.mixer.music.play()
 
                 game_over=True
